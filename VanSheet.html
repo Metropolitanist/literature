@@ -1,0 +1,277 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>So Sánh Đất Nước: Nguyễn Đình Thi & Tạ Hữu Yên</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Merriweather:wght@400;700&family=Roboto:wght@300;400;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Roboto', sans-serif;
+            background-color: #f8fafc; /* Blue-50 */
+            color: #1f2937; /* Gray-800 */
+        }
+        .header-font {
+            font-family: 'Merriweather', serif;
+        }
+        .scroll-mt-20 {
+            scroll-margin-top: 5rem;
+        }
+        /* Custom styling for the timeline connectors */
+        .timeline-connector {
+            position: absolute;
+            left: 50%;
+            top: 0;
+            bottom: 0;
+            width: 2px;
+            background-color: #fca5a5; /* Red-300 */
+            transform: translateX(-50%);
+        }
+        .tab-active {
+            @apply bg-white shadow-md border-b-2 border-red-600 text-red-600 font-bold;
+        }
+    </style>
+</head>
+<body class="antialiased">
+
+    <!-- Header and Navigation -->
+    <header class="bg-gray-900 sticky top-0 z-50 shadow-lg">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex items-center justify-between h-20">
+                <a href="#hero" class="text-2xl header-font font-bold text-white hover:text-red-400 transition duration-300">
+                    SƠ ĐỒ SO SÁNH "ĐẤT NƯỚC"
+                </a>
+                <nav class="hidden md:flex space-x-6 text-sm">
+                    <a href="#nguyendinhthi" class="text-white hover:text-red-400 transition duration-300">Nguyễn Đình Thi</a>
+                    <a href="#tahuuyen" class="text-white hover:text-red-400 transition duration-300">Tạ Hữu Yên</a>
+                    <a href="#tonghop" class="text-white hover:text-red-400 transition duration-300">So sánh Tổng hợp</a>
+                </nav>
+                <button id="mobile-menu-button" class="md:hidden text-white p-2 rounded-md hover:bg-gray-800 focus:outline-none">
+                    <!-- Icon Menu (Unicode) -->
+                    &#9776;
+                </button>
+            </div>
+        </div>
+        <!-- Mobile Menu (Hidden by default) -->
+        <div id="mobile-menu" class="hidden md:hidden bg-gray-800 transition-all duration-300">
+            <a href="#nguyendinhthi" class="block px-4 py-2 text-white hover:bg-gray-700">Nguyễn Đình Thi</a>
+            <a href="#tahuuyen" class="block px-4 py-2 text-white hover:bg-gray-700">Tạ Hữu Yên</a>
+            <a href="#tonghop" class="block px-4 py-2 text-white hover:bg-gray-700">So sánh Tổng hợp</a>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section id="hero" class="bg-red-600 text-white py-20 md:py-32 px-4 shadow-xl">
+        <div class="max-w-4xl mx-auto text-center">
+            <h1 class="text-4xl md:text-6xl header-font font-bold mb-4 animate-pulse">
+                ĐỐI THOẠI CỦA HÌNH TƯỢNG "ĐẤT NƯỚC"
+            </h1>
+            <p class="text-xl md:text-2xl mb-8">
+                Phân tích & So sánh N.Đ.Thi (Sử thi) và T.H.Yên (Trữ tình)
+            </p>
+            <div class="flex justify-center space-x-6">
+                <div class="bg-red-700 p-3 rounded-xl border-2 border-white hover:scale-105 transition duration-300">
+                    <span class="text-3xl">&#9876;</span>
+                    <p class="text-sm font-medium">Nguyễn Đình Thi: Dương Tính</p>
+                </div>
+                <div class="bg-red-700 p-3 rounded-xl border-2 border-white hover:scale-105 transition duration-300">
+                    <span class="text-3xl">&#9835;</span>
+                    <p class="text-sm font-medium">Tạ Hữu Yên: Âm Tính</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+
+        <!-- Context & Overview -->
+        <section class="mb-12">
+            <h2 class="text-3xl header-font font-bold mb-4 text-center border-b pb-2">I. BỐI CẢNH & PHONG CÁCH</h2>
+            <p class="text-center text-gray-600 mb-8 max-w-3xl mx-auto">
+                Sự khác biệt về thời đại (Kháng chiến vs Hòa bình) đã quy định hai dòng cảm hứng trái ngược.
+            </p>
+
+            <div class="grid md:grid-cols-3 gap-8 text-center relative">
+                <div class="hidden md:block timeline-connector"></div>
+                
+                <!-- NGUYEN DINH THI CARD -->
+                <div class="p-6 bg-red-100 rounded-lg shadow-lg relative border-l-4 border-red-600">
+                    <h3 class="text-xl header-font font-bold text-red-800 mb-2">Nguyễn Đình Thi</h3>
+                    <p class="text-sm mb-2 text-red-700">**Thời đại:** 1948 - 1955 (Kháng chiến chống Pháp)</p>
+                    <p class="text-sm">**Chủ âm:** Sử thi Bi tráng. Thơ là vũ khí, cần sự khẳng định và quật khởi.</p>
+                </div>
+
+                <!-- CONNECTOR ICON -->
+                <div class="hidden md:flex items-center justify-center">
+                    <span class="text-5xl text-gray-400">↔</span>
+                </div>
+
+                <!-- TA HUU YEN CARD -->
+                <div class="p-6 bg-blue-100 rounded-lg shadow-lg relative border-l-4 border-blue-600">
+                    <h3 class="text-xl header-font font-bold text-blue-800 mb-2">Tạ Hữu Yên</h3>
+                    <p class="text-sm mb-2 text-blue-700">**Thời đại:** Sau 1975 (Hòa bình, Tái thiết)</p>
+                    <p class="text-sm">**Chủ âm:** Trữ tình Thế sự. Thơ là tiếng đàn, cần sự hàn gắn và nâng niu văn hóa.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Detailed Analysis -->
+        <h2 class="text-3xl header-font font-bold mb-8 text-center border-b pb-2">II. PHÂN TÍCH HÌNH TƯỢNG CHI TIẾT</h2>
+
+        <!-- Nguyễn Đình Thi Section -->
+        <section id="nguyendinhthi" class="scroll-mt-20 bg-white p-6 md:p-10 rounded-xl shadow-2xl mb-12 border-t-8 border-red-600">
+            <h3 class="text-2xl md:text-3xl header-font font-bold text-red-700 mb-6">1. NGUYỄN ĐÌNH THI: TƯỢNG ĐÀI DƯƠNG TÍNH (Sử thi)</h3>
+            
+            <div class="grid md:grid-cols-2 gap-8">
+                <!-- Cột Nội dung -->
+                <div class="space-y-6">
+                    <div class="p-4 border-l-4 border-red-400 bg-red-50">
+                        <h4 class="font-bold text-lg mb-1 text-red-800">1.1. Từ Nỗi Nhớ đến Tuyên ngôn Chủ quyền</h4>
+                        <ul class="text-sm list-disc list-inside space-y-1 text-gray-700">
+                            <li>Khởi đầu bằng **Mùa Thu Hoài niệm** ("hương cốm mới", "chớm lạnh").</li>
+                            <li>Chuyển mạch sang **Tuyên ngôn** khẳng định: *“Trời xanh đây là của chúng ta”*.</li>
+                            <li>**Bút pháp:** Điệp từ *“của chúng ta”* dõng dạc, hào sảng, khẳng định quyền làm chủ tuyệt đối.</li>
+                        </ul>
+                    </div>
+
+                    <div class="p-4 border-l-4 border-red-400 bg-red-50">
+                        <h4 class="font-bold text-lg mb-1 text-red-800">1.2. Bi kịch và Sức mạnh Quật khởi</h4>
+                        <ul class="text-sm list-disc list-inside space-y-1 text-gray-700">
+                            <li>**Hiện thực khốc liệt:** "Cánh đồng quê chảy máu", "Dây thép gai đâm nát trời chiều". *Sử dụng hình ảnh tàn phá, nhân hóa nỗi đau.*</li>
+                            <li>**Hành động:** Chuyển hóa bi kịch thành sức mạnh: "Súng nổ rung trời giận dữ".</li>
+                            <li>**Kết tinh:** Hình tượng tráng sĩ: *“Rũ bùn đứng dậy sáng lòa”*. (Vẻ đẹp của ý chí, chất thép).</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Cột Trích dẫn -->
+                <div class="bg-gray-100 p-6 rounded-lg header-font italic text-red-900 shadow-inner flex flex-col justify-center">
+                    <p class="mb-4">"Ôi những cánh đồng quê chảy máu"</p>
+                    <p class="mb-4 text-right">"Dây thép gai đâm nát trời chiều."</p>
+                    <hr class="border-red-300 my-4">
+                    <p class="text-xl font-bold text-center">"Nước Việt Nam từ máu lửa<br>Rũ bùn đứng dậy sáng lòa."</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Tạ Hữu Yên Section -->
+        <section id="tahuuyen" class="scroll-mt-20 bg-white p-6 md:p-10 rounded-xl shadow-2xl mb-12 border-t-8 border-blue-600">
+            <h3 class="text-2xl md:text-3xl header-font font-bold text-blue-700 mb-6">2. TẠ HỮU YÊN: KHÚC CA ÂM TÍNH (Trữ tình)</h3>
+            
+            <div class="grid md:grid-cols-2 gap-8">
+                <!-- Cột Trích dẫn -->
+                <div class="bg-gray-100 p-6 rounded-lg header-font italic text-blue-900 shadow-inner flex flex-col justify-center order-last md:order-first">
+                    <p class="mb-4 text-center text-xl font-bold">"Đất nước tôi thon thả giọt đàn bầu"</p>
+                    <hr class="border-blue-300 my-4">
+                    <p class="mb-4">"Ba lần tiễn con đi, hai lần khóc thầm lặng lẽ"</p>
+                    <p class="mb-4 text-right">"Các anh không về, mình mẹ lặng im."</p>
+                </div>
+
+                <!-- Cột Nội dung -->
+                <div class="space-y-6 order-first md:order-last">
+                    <div class="p-4 border-l-4 border-blue-400 bg-blue-50">
+                        <h4 class="font-bold text-lg mb-1 text-blue-800">2.1. Hình dáng và Hồn Dân tộc</h4>
+                        <ul class="text-sm list-disc list-inside space-y-1 text-gray-700">
+                            <li>**Biểu tượng Văn hóa:** "thon thả giọt đàn bầu". *Gợi hình chữ S và âm thanh tâm hồn Việt.*</li>
+                            <li>**Cội nguồn:** Gắn liền với huyền thoại ("Sáng chắn bão giông, chiều ngăn nắng lửa").</li>
+                            <li>**Phong cách:** Giọng thơ thủ thỉ, giàu nhạc tính, đậm chất dân gian.</li>
+                        </ul>
+                    </div>
+
+                    <div class="p-4 border-l-4 border-blue-400 bg-blue-50">
+                        <h4 class="font-bold text-lg mb-1 text-blue-800">2.2. Đất nước và Tình Mẫu tử</h4>
+                        <ul class="text-sm list-disc list-inside space-y-1 text-gray-700">
+                            <li>**Hình tượng trung tâm:** Người Mẹ - đại diện cho sự chịu đựng và hy sinh thầm lặng.</li>
+                            <li>**Nỗi đau:** "khóc thầm lặng lẽ". *Phân tích: Im lặng là sức mạnh bền bỉ, hàn gắn.*</li>
+                            <li>**Vẻ đẹp đời thường:** Lao xao ca dao, bãi dâu, gạo trắng nước trong. (Vẻ đẹp của sự sống tái sinh).</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Comparison Table Section -->
+        <section id="tonghop" class="scroll-mt-20 bg-gray-100 p-6 md:p-10 rounded-xl shadow-2xl mb-12">
+            <h2 class="text-3xl header-font font-bold mb-8 text-center text-gray-800">III. SO SÁNH TỔNG HỢP & LÝ GIẢI</h2>
+
+            <div class="overflow-x-auto">
+                <table class="min-w-full divide-y divide-gray-300 rounded-lg overflow-hidden">
+                    <thead class="bg-gray-700 text-white">
+                        <tr>
+                            <th class="px-6 py-3 text-left text-sm font-medium">Tiêu chí</th>
+                            <th class="px-6 py-3 text-center text-sm font-medium bg-red-600">Nguyễn Đình Thi</th>
+                            <th class="px-6 py-3 text-center text-sm font-medium bg-blue-600">Tạ Hữu Yên</th>
+                        </tr>
+                    </thead>
+                    <tbody class="bg-white divide-y divide-gray-200 text-sm">
+                        <tr>
+                            <td class="px-6 py-4 font-semibold">Cảm hứng chủ đạo</td>
+                            <td class="px-6 py-4 text-center text-red-800">Sử thi, Lãng mạn Cách mạng</td>
+                            <td class="px-6 py-4 text-center text-blue-800">Trữ tình Thế sự, Dân gian</td>
+                        </tr>
+                        <tr>
+                            <td class="px-6 py-4 font-semibold">Chất liệu nghệ thuật</td>
+                            <td class="px-6 py-4 text-center">Máu, Lửa, Bùn, Thép, Súng đạn</td>
+                            <td class="px-6 py-4 text-center">Đàn bầu, Ca dao, Lời ru, Bãi dâu</td>
+                        </tr>
+                        <tr>
+                            <td class="px-6 py-4 font-semibold">Vận động thời gian</td>
+                            <td class="px-6 py-4 text-center">Lịch sử, Tuyến tính (Quá khứ $\rightarrow$ Tương lai)</td>
+                            <td class="px-6 py-4 text-center">Văn hóa, Tuần hoàn (Huyền thoại $\leftrightarrow$ Hiện tại)</td>
+                        </tr>
+                        <tr class="bg-yellow-50">
+                            <td class="px-6 py-4 font-semibold text-gray-700">Tính chất/Sức mạnh</td>
+                            <td class="px-6 py-4 text-center font-bold text-red-600">Dương tính (Chiến đấu, Quật khởi)</td>
+                            <td class="px-6 py-4 text-center font-bold text-blue-600">Âm tính (Bao dung, Bền bỉ, Hàn gắn)</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <!-- Conclusion Block -->
+            <div class="mt-8 p-6 bg-gray-700 rounded-lg text-white">
+                <h3 class="text-xl header-font font-bold mb-3 text-red-300">Kết luận: Giá trị Bổ sung</h3>
+                <p>Hai tác phẩm là hai mảnh ghép hoàn hảo, không thể thiếu trong chân dung Đất nước Việt Nam:</p>
+                <ul class="list-disc list-inside ml-4 mt-2 text-gray-300">
+                    <li>**Nguyễn Đình Thi** đặt nền móng cho ý chí **đấu tranh và tự cường**.</li>
+                    <li>**Tạ Hữu Yên** khẳng định sức sống **văn hóa và sự tái sinh** sau chiến tranh.</li>
+                    <li>Cả hai đều tôn vinh **lòng yêu nước bất diệt** và niềm tự hào dân tộc.</li>
+                </ul>
+            </div>
+        </section>
+    </div>
+
+    <!-- Footer -->
+    <footer class="bg-gray-900 text-gray-400 py-6 text-center text-xs">
+        <p>&copy; 2024 Tóm tắt Văn học So sánh. Thiết kế Responsive bằng Tailwind CSS.</p>
+    </footer>
+
+    <!-- JavaScript for Mobile Menu and Smooth Scroll -->
+    <script>
+        // Toggle Mobile Menu
+        document.getElementById('mobile-menu-button').addEventListener('click', function() {
+            document.getElementById('mobile-menu').classList.toggle('hidden');
+        });
+
+        // Smooth Scrolling for all internal links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const targetId = this.getAttribute('href').substring(1);
+                const targetElement = document.getElementById(targetId);
+
+                if (targetElement) {
+                    window.scrollTo({
+                        top: targetElement.offsetTop - 80, // Offset for fixed header
+                        behavior: 'smooth'
+                    });
+                }
+                // Close mobile menu after clicking a link
+                document.getElementById('mobile-menu').classList.add('hidden');
+            });
+        });
+
+    </script>
+</body>
+</html>
