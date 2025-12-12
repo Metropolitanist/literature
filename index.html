@@ -3,478 +3,275 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>So Sánh: Tự Tình II & Sóng</title>
+    <title>So Sánh Đất Nước: Nguyễn Đình Thi & Tạ Hữu Yên</title>
     <script src="https://cdn.tailwindcss.com"></script>
-    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-    <link href="https://fonts.googleapis.com/css2?family=Noto+Serif:ital,wght@0,400;0,700;1,400&family=Noto+Sans:wght@300;400;600&display=swap" rel="stylesheet">
-    
-    <!-- Chosen Palette: Vintage Paper & Ocean Breeze -->
-    <!-- Application Structure Plan: 
-         1. Hero Section: Sets the stage with the dual theme of classic vs modern love poetry.
-         2. Author Dual-View: A side-by-side interactive card layout to introduce the poets and their contexts.
-         3. Deep Dive Tabs: An interactive tabbed section allowing users to explore the specific content (Content, Art, Key Verses) of each poem without clutter.
-         4. Comparative Analytics: A visual breakdown using a Radar Chart to quantify qualitative attributes (Pain, Hope, Resistance, Freedom) for intuitive comparison, paired with a text-based matrix for "Era" context.
-         5. Synthesis: Concluding thoughts on the legacy of both works.
-         WHY: This structure moves from general context -> specific analysis -> comparative synthesis, guiding the user's understanding logically. -->
-    
-    <!-- Visualization & Content Choices:
-         1. Intro/Hero -> Goal: Context -> Method: Text & Unicode Icons -> Justification: Sets the mood immediately.
-         2. Radar Chart (Chart.js) -> Goal: Compare abstract emotions/attitudes -> Method: Two datasets (HXH vs XQ) on axes like "Nỗi Đau", "Hy Vọng", "Phản Kháng" -> Justification: Visualizes the contrast in tone effectively.
-         3. Interactive Tabs -> Goal: Organize detailed text -> Method: JS switching of hidden/block classes -> Justification: Prevents text walls, encourages exploration.
-         4. Comparison Matrix -> Goal: Clear contrast of Era/Style -> Method: Styled CSS Grid Table -> Justification: Easy to read side-by-side comparison. -->
-    
-    <!-- CONFIRMATION: NO SVG graphics used. NO Mermaid JS used. -->
-
+    <link href="https://fonts.googleapis.com/css2?family=Merriweather:wght@400;700&family=Roboto:wght@300;400;700&display=swap" rel="stylesheet">
     <style>
         body {
-            font-family: 'Noto Sans', sans-serif;
-            background-color: #fdfbf7; /* Warm paper background */
-            color: #2c2c2c;
+            font-family: 'Roboto', sans-serif;
+            background-color: #f8fafc; /* Blue-50 */
+            color: #1f2937; /* Gray-800 */
         }
-        h1, h2, h3, .serif {
-            font-family: 'Noto Serif', serif;
+        .header-font {
+            font-family: 'Merriweather', serif;
         }
-        .chart-container {
-            position: relative;
-            width: 100%;
-            max-width: 600px;
-            margin-left: auto;
-            margin-right: auto;
-            height: 350px;
-            max-height: 400px;
+        .scroll-mt-20 {
+            scroll-margin-top: 5rem;
+        }
+        /* Custom styling for the timeline connectors */
+        .timeline-connector {
+            position: absolute;
+            left: 50%;
+            top: 0;
+            bottom: 0;
+            width: 2px;
+            background-color: #fca5a5; /* Red-300 */
+            transform: translateX(-50%);
         }
         .tab-active {
-            border-bottom: 2px solid #be185d; /* Pink-700 */
-            color: #be185d;
-            font-weight: bold;
-        }
-        .tab-inactive {
-            color: #6b7280;
-            border-bottom: 2px solid transparent;
-        }
-        .tab-inactive:hover {
-            color: #374151;
-        }
-        .fade-in {
-            animation: fadeIn 0.5s ease-in;
-        }
-        @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(10px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
-        .poetry-card {
-            transition: all 0.3s ease;
-        }
-        .poetry-card:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+            @apply bg-white shadow-md border-b-2 border-red-600 text-red-600 font-bold;
         }
     </style>
 </head>
-<body class="antialiased min-h-screen flex flex-col">
+<body class="antialiased">
 
-    <!-- Header / Hero Section -->
-    <header class="bg-[#e7e5e4] border-b border-gray-300 py-10 px-4 text-center shadow-sm">
-        <div class="max-w-4xl mx-auto">
-            <div class="text-sm uppercase tracking-widest text-gray-500 mb-2">Văn Học Việt Nam</div>
-            <h1 class="text-3xl md:text-5xl font-bold text-gray-800 mb-4 leading-tight">
-                Đối Thoại Của Tình Yêu: <br>
-                <span class="text-[#9f1239]">Tự Tình II</span> & <span class="text-[#0e7490]">Sóng</span>
-            </h1>
-            <p class="text-lg md:text-xl text-gray-600 max-w-2xl mx-auto serif italic">
-                Từ tiếng nấc nghẹn ngào của kiếp hồng nhan xưa đến tiếng sóng vỗ bồi hồi của người phụ nữ hiện đại.
-            </p>
-            <div class="mt-8 flex justify-center space-x-8 text-3xl">
-                <span title="Hồ Xuân Hương">🌙</span>
-                <span class="text-gray-300">|</span>
-                <span title="Xuân Quỳnh">🌊</span>
+    <!-- Header and Navigation -->
+    <header class="bg-gray-900 sticky top-0 z-50 shadow-lg">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex items-center justify-between h-20">
+                <a href="#hero" class="text-2xl header-font font-bold text-white hover:text-red-400 transition duration-300">
+                    SƠ ĐỒ SO SÁNH "ĐẤT NƯỚC"
+                </a>
+                <nav class="hidden md:flex space-x-6 text-sm">
+                    <a href="#nguyendinhthi" class="text-white hover:text-red-400 transition duration-300">Nguyễn Đình Thi</a>
+                    <a href="#tahuuyen" class="text-white hover:text-red-400 transition duration-300">Tạ Hữu Yên</a>
+                    <a href="#tonghop" class="text-white hover:text-red-400 transition duration-300">So sánh Tổng hợp</a>
+                </nav>
+                <button id="mobile-menu-button" class="md:hidden text-white p-2 rounded-md hover:bg-gray-800 focus:outline-none">
+                    <!-- Icon Menu (Unicode) -->
+                    &#9776;
+                </button>
             </div>
+        </div>
+        <!-- Mobile Menu (Hidden by default) -->
+        <div id="mobile-menu" class="hidden md:hidden bg-gray-800 transition-all duration-300">
+            <a href="#nguyendinhthi" class="block px-4 py-2 text-white hover:bg-gray-700">Nguyễn Đình Thi</a>
+            <a href="#tahuuyen" class="block px-4 py-2 text-white hover:bg-gray-700">Tạ Hữu Yên</a>
+            <a href="#tonghop" class="block px-4 py-2 text-white hover:bg-gray-700">So sánh Tổng hợp</a>
         </div>
     </header>
 
-    <main class="flex-grow container mx-auto px-4 py-8 space-y-12 max-w-6xl">
-
-        <!-- Introduction Section -->
-        <section class="bg-white p-6 rounded-lg shadow-sm border-l-4 border-gray-800">
-            <h2 class="text-xl font-bold mb-3 uppercase tracking-wide text-gray-700">1. Đặt Vấn Đề</h2>
-            <p class="text-gray-700 leading-relaxed mb-4">
-                Phần này giới thiệu bối cảnh chung của chuyên đề. Tình yêu là cảm hứng muôn đời, nhưng mỗi thời đại mang một sắc thái riêng. 
-                Ứng dụng này sẽ giúp bạn so sánh trực quan hai thi phẩm tiêu biểu: <strong>"Tự tình II"</strong> của Hồ Xuân Hương và <strong>"Sóng"</strong> của Xuân Quỳnh, 
-                để thấy sự vận động của cái tôi trữ tình từ phản kháng bi thương đến khát vọng tin yêu.
+    <!-- Hero Section -->
+    <section id="hero" class="bg-red-600 text-white py-20 md:py-32 px-4 shadow-xl">
+        <div class="max-w-4xl mx-auto text-center">
+            <h1 class="text-4xl md:text-6xl header-font font-bold mb-4 animate-pulse">
+                ĐỐI THOẠI CỦA HÌNH TƯỢNG "ĐẤT NƯỚC"
+            </h1>
+            <p class="text-xl md:text-2xl mb-8">
+                Phân tích & So sánh N.Đ.Thi (Sử thi) và T.H.Yên (Trữ tình)
             </p>
+            <div class="flex justify-center space-x-6">
+                <div class="bg-red-700 p-3 rounded-xl border-2 border-white hover:scale-105 transition duration-300">
+                    <span class="text-3xl">&#9876;</span>
+                    <p class="text-sm font-medium">Nguyễn Đình Thi: Dương Tính</p>
+                </div>
+                <div class="bg-red-700 p-3 rounded-xl border-2 border-white hover:scale-105 transition duration-300">
+                    <span class="text-3xl">&#9835;</span>
+                    <p class="text-sm font-medium">Tạ Hữu Yên: Âm Tính</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+
+        <!-- Context & Overview -->
+        <section class="mb-12">
+            <h2 class="text-3xl header-font font-bold mb-4 text-center border-b pb-2">I. BỐI CẢNH & PHONG CÁCH</h2>
+            <p class="text-center text-gray-600 mb-8 max-w-3xl mx-auto">
+                Sự khác biệt về thời đại (Kháng chiến vs Hòa bình) đã quy định hai dòng cảm hứng trái ngược.
+            </p>
+
+            <div class="grid md:grid-cols-3 gap-8 text-center relative">
+                <div class="hidden md:block timeline-connector"></div>
+                
+                <!-- NGUYEN DINH THI CARD -->
+                <div class="p-6 bg-red-100 rounded-lg shadow-lg relative border-l-4 border-red-600">
+                    <h3 class="text-xl header-font font-bold text-red-800 mb-2">Nguyễn Đình Thi</h3>
+                    <p class="text-sm mb-2 text-red-700">**Thời đại:** 1948 - 1955 (Kháng chiến chống Pháp)</p>
+                    <p class="text-sm">**Chủ âm:** Sử thi Bi tráng. Thơ là vũ khí, cần sự khẳng định và quật khởi.</p>
+                </div>
+
+                <!-- CONNECTOR ICON -->
+                <div class="hidden md:flex items-center justify-center">
+                    <span class="text-5xl text-gray-400">↔</span>
+                </div>
+
+                <!-- TA HUU YEN CARD -->
+                <div class="p-6 bg-blue-100 rounded-lg shadow-lg relative border-l-4 border-blue-600">
+                    <h3 class="text-xl header-font font-bold text-blue-800 mb-2">Tạ Hữu Yên</h3>
+                    <p class="text-sm mb-2 text-blue-700">**Thời đại:** Sau 1975 (Hòa bình, Tái thiết)</p>
+                    <p class="text-sm">**Chủ âm:** Trữ tình Thế sự. Thơ là tiếng đàn, cần sự hàn gắn và nâng niu văn hóa.</p>
+                </div>
+            </div>
         </section>
 
-        <!-- Authors Section -->
-        <section>
+        <!-- Detailed Analysis -->
+        <h2 class="text-3xl header-font font-bold mb-8 text-center border-b pb-2">II. PHÂN TÍCH HÌNH TƯỢNG CHI TIẾT</h2>
+
+        <!-- Nguyễn Đình Thi Section -->
+        <section id="nguyendinhthi" class="scroll-mt-20 bg-white p-6 md:p-10 rounded-xl shadow-2xl mb-12 border-t-8 border-red-600">
+            <h3 class="text-2xl md:text-3xl header-font font-bold text-red-700 mb-6">1. NGUYỄN ĐÌNH THI: TƯỢNG ĐÀI DƯƠNG TÍNH (Sử thi)</h3>
+            
             <div class="grid md:grid-cols-2 gap-8">
-                <!-- Ho Xuan Huong -->
-                <div class="poetry-card bg-[#fff1f2] p-6 rounded-xl border border-rose-100 relative overflow-hidden">
-                    <div class="absolute top-0 right-0 p-4 text-rose-200 text-6xl opacity-20 font-serif">A</div>
-                    <div class="relative z-10">
-                        <div class="flex items-center space-x-3 mb-4">
-                            <div class="bg-rose-800 text-white w-10 h-10 rounded-full flex items-center justify-center font-bold font-serif">H</div>
-                            <div>
-                                <h3 class="text-xl font-bold text-rose-900 serif">Hồ Xuân Hương</h3>
-                                <span class="text-xs text-rose-700 uppercase tracking-wider">Bà Chúa Thơ Nôm</span>
-                            </div>
-                        </div>
-                        <ul class="space-y-2 text-rose-900 text-sm">
-                            <li>📅 <strong>Thời đại:</strong> Thế kỷ XVIII - XIX (Phong kiến).</li>
-                            <li>🎭 <strong>Phong cách:</strong> Sắc sảo, trào phúng, bi thương.</li>
-                            <li>💭 <strong>Tư tưởng:</strong> Đòi quyền sống, phản kháng chế độ nam quyền.</li>
+                <!-- Cột Nội dung -->
+                <div class="space-y-6">
+                    <div class="p-4 border-l-4 border-red-400 bg-red-50">
+                        <h4 class="font-bold text-lg mb-1 text-red-800">1.1. Từ Nỗi Nhớ đến Tuyên ngôn Chủ quyền</h4>
+                        <ul class="text-sm list-disc list-inside space-y-1 text-gray-700">
+                            <li>Khởi đầu bằng **Mùa Thu Hoài niệm** ("hương cốm mới", "chớm lạnh").</li>
+                            <li>Chuyển mạch sang **Tuyên ngôn** khẳng định: *“Trời xanh đây là của chúng ta”*.</li>
+                            <li>**Bút pháp:** Điệp từ *“của chúng ta”* dõng dạc, hào sảng, khẳng định quyền làm chủ tuyệt đối.</li>
+                        </ul>
+                    </div>
+
+                    <div class="p-4 border-l-4 border-red-400 bg-red-50">
+                        <h4 class="font-bold text-lg mb-1 text-red-800">1.2. Bi kịch và Sức mạnh Quật khởi</h4>
+                        <ul class="text-sm list-disc list-inside space-y-1 text-gray-700">
+                            <li>**Hiện thực khốc liệt:** "Cánh đồng quê chảy máu", "Dây thép gai đâm nát trời chiều". *Sử dụng hình ảnh tàn phá, nhân hóa nỗi đau.*</li>
+                            <li>**Hành động:** Chuyển hóa bi kịch thành sức mạnh: "Súng nổ rung trời giận dữ".</li>
+                            <li>**Kết tinh:** Hình tượng tráng sĩ: *“Rũ bùn đứng dậy sáng lòa”*. (Vẻ đẹp của ý chí, chất thép).</li>
                         </ul>
                     </div>
                 </div>
 
-                <!-- Xuan Quynh -->
-                <div class="poetry-card bg-[#ecfeff] p-6 rounded-xl border border-cyan-100 relative overflow-hidden">
-                    <div class="absolute top-0 right-0 p-4 text-cyan-200 text-6xl opacity-20 font-serif">B</div>
-                    <div class="relative z-10">
-                        <div class="flex items-center space-x-3 mb-4">
-                            <div class="bg-cyan-700 text-white w-10 h-10 rounded-full flex items-center justify-center font-bold font-serif">X</div>
-                            <div>
-                                <h3 class="text-xl font-bold text-cyan-900 serif">Xuân Quỳnh</h3>
-                                <span class="text-xs text-cyan-700 uppercase tracking-wider">Hoàng Hậu Của Thi Ca Tình Yêu</span>
-                            </div>
-                        </div>
-                        <ul class="space-y-2 text-cyan-900 text-sm">
-                            <li>📅 <strong>Thời đại:</strong> Thế kỷ XX (Hiện đại, Chống Mỹ).</li>
-                            <li>🌊 <strong>Phong cách:</strong> Dịu êm, da diết, đằm thắm, nữ tính.</li>
-                            <li>💭 <strong>Tư tưởng:</strong> Khát vọng hạnh phúc bình dị, đời thường.</li>
-                        </ul>
-                    </div>
+                <!-- Cột Trích dẫn -->
+                <div class="bg-gray-100 p-6 rounded-lg header-font italic text-red-900 shadow-inner flex flex-col justify-center">
+                    <p class="mb-4">"Ôi những cánh đồng quê chảy máu"</p>
+                    <p class="mb-4 text-right">"Dây thép gai đâm nát trời chiều."</p>
+                    <hr class="border-red-300 my-4">
+                    <p class="text-xl font-bold text-center">"Nước Việt Nam từ máu lửa<br>Rũ bùn đứng dậy sáng lòa."</p>
                 </div>
             </div>
         </section>
 
-        <!-- Deep Dive Interactive Tabs -->
-        <section class="bg-white rounded-xl shadow-lg overflow-hidden">
-            <div class="p-6 bg-gray-50 border-b border-gray-200">
-                <h2 class="text-2xl font-bold text-gray-800 serif mb-2">2. Phân Tích Tác Phẩm</h2>
-                <p class="text-sm text-gray-500">Nhấn vào các tab bên dưới để khám phá nội dung chi tiết của từng bài thơ.</p>
-            </div>
+        <!-- Tạ Hữu Yên Section -->
+        <section id="tahuuyen" class="scroll-mt-20 bg-white p-6 md:p-10 rounded-xl shadow-2xl mb-12 border-t-8 border-blue-600">
+            <h3 class="text-2xl md:text-3xl header-font font-bold text-blue-700 mb-6">2. TẠ HỮU YÊN: KHÚC CA ÂM TÍNH (Trữ tình)</h3>
             
-            <!-- Tab Navigation -->
-            <div class="flex border-b border-gray-200">
-                <button onclick="switchTab('tutinh')" id="tab-tutinh" class="flex-1 py-4 text-center transition-colors tab-active bg-rose-50">
-                    Tự Tình II (Hồ Xuân Hương)
-                </button>
-                <button onclick="switchTab('song')" id="tab-song" class="flex-1 py-4 text-center transition-colors tab-inactive hover:bg-cyan-50">
-                    Sóng (Xuân Quỳnh)
-                </button>
-            </div>
+            <div class="grid md:grid-cols-2 gap-8">
+                <!-- Cột Trích dẫn -->
+                <div class="bg-gray-100 p-6 rounded-lg header-font italic text-blue-900 shadow-inner flex flex-col justify-center order-last md:order-first">
+                    <p class="mb-4 text-center text-xl font-bold">"Đất nước tôi thon thả giọt đàn bầu"</p>
+                    <hr class="border-blue-300 my-4">
+                    <p class="mb-4">"Ba lần tiễn con đi, hai lần khóc thầm lặng lẽ"</p>
+                    <p class="mb-4 text-right">"Các anh không về, mình mẹ lặng im."</p>
+                </div>
 
-            <!-- Tab Content: Tu Tinh -->
-            <div id="content-tutinh" class="p-6 md:p-8 fade-in block">
-                <div class="grid md:grid-cols-2 gap-8">
-                    <div>
-                        <h4 class="text-rose-800 font-bold mb-3 border-b border-rose-200 pb-1">Nội Dung & Cảm Hứng</h4>
-                        <p class="text-gray-700 text-sm mb-4 leading-relaxed">
-                            Bài thơ là tiếng nấc nghẹn ngào cho kiếp "hồng nhan bạc mệnh" trong đêm khuya thanh vắng.
-                            Đối diện với thực tại "chua cay", nhân vật trữ tình đau đớn cho phận làm lẽ và tuổi xuân trôi qua vô vọng.
-                        </p>
-                        <div class="bg-rose-50 p-4 rounded-lg italic text-rose-900 font-serif border-l-4 border-rose-400">
-                            "Ngán nỗi xuân đi xuân lại lại<br>
-                            Mảnh tình san sẻ tí con con!"
-                        </div>
-                    </div>
-                    <div>
-                        <h4 class="text-rose-800 font-bold mb-3 border-b border-rose-200 pb-1">Nghệ Thuật Đặc Sắc</h4>
-                        <ul class="list-none space-y-3 text-sm text-gray-700">
-                            <li class="flex items-start">
-                                <span class="mr-2 text-rose-600 font-bold">➢</span>
-                                <div>
-                                    <strong>Động từ mạnh:</strong> "Xiên ngang", "đâm toạc" thể hiện sự phẫn uất, muốn xé nát không gian, phá tung xiềng xích lễ giáo.
-                                </div>
-                            </li>
-                            <li class="flex items-start">
-                                <span class="mr-2 text-rose-600 font-bold">➢</span>
-                                <div>
-                                    <strong>Tả cảnh ngụ tình:</strong> Mượn hình ảnh thiên nhiên (đá, rêu, trăng khuyết) để nói lên sức sống tiềm tàng nhưng cô đơn, trơ trọi.
-                                </div>
-                            </li>
-                            <li class="flex items-start">
-                                <span class="mr-2 text-rose-600 font-bold">➢</span>
-                                <div>
-                                    <strong>Kết cấu:</strong> Vòng lặp luẩn quẩn của thời gian và nỗi đau không lối thoát.
-                                </div>
-                            </li>
+                <!-- Cột Nội dung -->
+                <div class="space-y-6 order-first md:order-last">
+                    <div class="p-4 border-l-4 border-blue-400 bg-blue-50">
+                        <h4 class="font-bold text-lg mb-1 text-blue-800">2.1. Hình dáng và Hồn Dân tộc</h4>
+                        <ul class="text-sm list-disc list-inside space-y-1 text-gray-700">
+                            <li>**Biểu tượng Văn hóa:** "thon thả giọt đàn bầu". *Gợi hình chữ S và âm thanh tâm hồn Việt.*</li>
+                            <li>**Cội nguồn:** Gắn liền với huyền thoại ("Sáng chắn bão giông, chiều ngăn nắng lửa").</li>
+                            <li>**Phong cách:** Giọng thơ thủ thỉ, giàu nhạc tính, đậm chất dân gian.</li>
                         </ul>
                     </div>
-                </div>
-            </div>
 
-            <!-- Tab Content: Song -->
-            <div id="content-song" class="p-6 md:p-8 fade-in hidden">
-                <div class="grid md:grid-cols-2 gap-8">
-                    <div>
-                        <h4 class="text-cyan-800 font-bold mb-3 border-b border-cyan-200 pb-1">Nội Dung & Cảm Hứng</h4>
-                        <p class="text-gray-700 text-sm mb-4 leading-relaxed">
-                            "Sóng" là ẩn dụ cho "Em" - cái tôi của người phụ nữ đang yêu. Tâm trạng biến đổi từ "dữ dội" đến "dịu êm".
-                            Nỗi nhớ bao trùm cả không gian và thời gian ("cả trong mơ còn thức").
-                        </p>
-                        <div class="bg-cyan-50 p-4 rounded-lg italic text-cyan-900 font-serif border-l-4 border-cyan-400">
-                            "Làm sao được tan ra<br>
-                            Thành trăm con sóng nhỏ<br>
-                            Giữa biển lớn tình yêu..."
-                        </div>
-                    </div>
-                    <div>
-                        <h4 class="text-cyan-800 font-bold mb-3 border-b border-cyan-200 pb-1">Nghệ Thuật Đặc Sắc</h4>
-                        <ul class="list-none space-y-3 text-sm text-gray-700">
-                            <li class="flex items-start">
-                                <span class="mr-2 text-cyan-600 font-bold">➢</span>
-                                <div>
-                                    <strong>Thể thơ năm chữ:</strong> Tạo nhịp điệu dập dìu như những con sóng biển vỗ vào bờ, thủ thỉ tâm tình.
-                                </div>
-                            </li>
-                            <li class="flex items-start">
-                                <span class="mr-2 text-cyan-600 font-bold">➢</span>
-                                <div>
-                                    <strong>Tính chủ động:</strong> Không bế tắc mà tự vấn ("Gió bắt đầu từ đâu?"), chủ động hiến dâng ("tan ra") để tình yêu trở thành vĩnh cửu.
-                                </div>
-                            </li>
-                            <li class="flex items-start">
-                                <span class="mr-2 text-cyan-600 font-bold">➢</span>
-                                <div>
-                                    <strong>Giọng điệu:</strong> Vừa hồn nhiên, trẻ trung, vừa sâu sắc, triết lý về cuộc đời.
-                                </div>
-                            </li>
+                    <div class="p-4 border-l-4 border-blue-400 bg-blue-50">
+                        <h4 class="font-bold text-lg mb-1 text-blue-800">2.2. Đất nước và Tình Mẫu tử</h4>
+                        <ul class="text-sm list-disc list-inside space-y-1 text-gray-700">
+                            <li>**Hình tượng trung tâm:** Người Mẹ - đại diện cho sự chịu đựng và hy sinh thầm lặng.</li>
+                            <li>**Nỗi đau:** "khóc thầm lặng lẽ". *Phân tích: Im lặng là sức mạnh bền bỉ, hàn gắn.*</li>
+                            <li>**Vẻ đẹp đời thường:** Lao xao ca dao, bãi dâu, gạo trắng nước trong. (Vẻ đẹp của sự sống tái sinh).</li>
                         </ul>
                     </div>
                 </div>
             </div>
         </section>
 
-        <!-- Comparison Visualization Section -->
-        <section class="grid lg:grid-cols-2 gap-8">
-            
-            <!-- Left: Radar Chart -->
-            <div class="bg-white p-6 rounded-xl shadow-lg flex flex-col">
-                <div class="mb-4">
-                    <h3 class="text-lg font-bold text-gray-800 serif">3. Đối Sánh Cảm Xúc & Thái Độ</h3>
-                    <p class="text-xs text-gray-500 mt-1">Biểu đồ thể hiện sự khác biệt về cường độ các yếu tố tâm lý trong hai tác phẩm.</p>
-                </div>
-                
-                <div class="flex-grow flex items-center justify-center bg-gray-50 rounded-lg p-2">
-                    <div class="chart-container">
-                        <canvas id="comparisonChart"></canvas>
-                    </div>
-                </div>
-                
-                <div class="mt-4 flex justify-center space-x-6 text-sm">
-                    <div class="flex items-center">
-                        <span class="w-3 h-3 rounded-full bg-rose-500 mr-2"></span>
-                        <span class="text-gray-700 font-medium">Hồ Xuân Hương</span>
-                    </div>
-                    <div class="flex items-center">
-                        <span class="w-3 h-3 rounded-full bg-cyan-500 mr-2"></span>
-                        <span class="text-gray-700 font-medium">Xuân Quỳnh</span>
-                    </div>
-                </div>
+        <!-- Comparison Table Section -->
+        <section id="tonghop" class="scroll-mt-20 bg-gray-100 p-6 md:p-10 rounded-xl shadow-2xl mb-12">
+            <h2 class="text-3xl header-font font-bold mb-8 text-center text-gray-800">III. SO SÁNH TỔNG HỢP & LÝ GIẢI</h2>
+
+            <div class="overflow-x-auto">
+                <table class="min-w-full divide-y divide-gray-300 rounded-lg overflow-hidden">
+                    <thead class="bg-gray-700 text-white">
+                        <tr>
+                            <th class="px-6 py-3 text-left text-sm font-medium">Tiêu chí</th>
+                            <th class="px-6 py-3 text-center text-sm font-medium bg-red-600">Nguyễn Đình Thi</th>
+                            <th class="px-6 py-3 text-center text-sm font-medium bg-blue-600">Tạ Hữu Yên</th>
+                        </tr>
+                    </thead>
+                    <tbody class="bg-white divide-y divide-gray-200 text-sm">
+                        <tr>
+                            <td class="px-6 py-4 font-semibold">Cảm hứng chủ đạo</td>
+                            <td class="px-6 py-4 text-center text-red-800">Sử thi, Lãng mạn Cách mạng</td>
+                            <td class="px-6 py-4 text-center text-blue-800">Trữ tình Thế sự, Dân gian</td>
+                        </tr>
+                        <tr>
+                            <td class="px-6 py-4 font-semibold">Chất liệu nghệ thuật</td>
+                            <td class="px-6 py-4 text-center">Máu, Lửa, Bùn, Thép, Súng đạn</td>
+                            <td class="px-6 py-4 text-center">Đàn bầu, Ca dao, Lời ru, Bãi dâu</td>
+                        </tr>
+                        <tr>
+                            <td class="px-6 py-4 font-semibold">Vận động thời gian</td>
+                            <td class="px-6 py-4 text-center">Lịch sử, Tuyến tính (Quá khứ $\rightarrow$ Tương lai)</td>
+                            <td class="px-6 py-4 text-center">Văn hóa, Tuần hoàn (Huyền thoại $\leftrightarrow$ Hiện tại)</td>
+                        </tr>
+                        <tr class="bg-yellow-50">
+                            <td class="px-6 py-4 font-semibold text-gray-700">Tính chất/Sức mạnh</td>
+                            <td class="px-6 py-4 text-center font-bold text-red-600">Dương tính (Chiến đấu, Quật khởi)</td>
+                            <td class="px-6 py-4 text-center font-bold text-blue-600">Âm tính (Bao dung, Bền bỉ, Hàn gắn)</td>
+                        </tr>
+                    </tbody>
+                </table>
             </div>
 
-            <!-- Right: Context Matrix -->
-            <div class="bg-white p-6 rounded-xl shadow-lg flex flex-col">
-                <div class="mb-4">
-                    <h3 class="text-lg font-bold text-gray-800 serif">4. Lý Giải Từ Thời Đại</h3>
-                    <p class="text-xs text-gray-500 mt-1">Sự khác biệt trong giọng văn bắt nguồn từ bối cảnh xã hội.</p>
-                </div>
-
-                <div class="flex-grow overflow-x-auto">
-                    <table class="w-full text-sm text-left border-collapse">
-                        <thead>
-                            <tr class="bg-gray-100 text-gray-600 uppercase text-xs tracking-wider">
-                                <th class="p-3 border-b">Tiêu Chí</th>
-                                <th class="p-3 border-b text-rose-800">Tự Tình II (Xưa)</th>
-                                <th class="p-3 border-b text-cyan-800">Sóng (Nay)</th>
-                            </tr>
-                        </thead>
-                        <tbody class="divide-y divide-gray-100">
-                            <tr>
-                                <td class="p-3 font-semibold text-gray-700">Bối Cảnh</td>
-                                <td class="p-3 text-gray-600">Xã hội phong kiến, trọng nam khinh nữ, chế độ đa thê.</td>
-                                <td class="p-3 text-gray-600">Thời đại mới, tự do yêu đương, bình đẳng giới.</td>
-                            </tr>
-                            <tr>
-                                <td class="p-3 font-semibold text-gray-700">Thái Độ</td>
-                                <td class="p-3 text-gray-600">Phản kháng dữ dội nhưng bất lực, bế tắc.</td>
-                                <td class="p-3 text-gray-600">Chủ động, tự tin, tin tưởng vào tình yêu.</td>
-                            </tr>
-                            <tr>
-                                <td class="p-3 font-semibold text-gray-700">Thời Gian</td>
-                                <td class="p-3 text-gray-600">Vòng lặp khắc nghiệt ("Xuân đi xuân lại lại").</td>
-                                <td class="p-3 text-gray-600">Tuyến tính, hướng tới sự vĩnh cửu ("Ngàn năm còn vỗ").</td>
-                            </tr>
-                            <tr>
-                                <td class="p-3 font-semibold text-gray-700">Nỗi Nhớ</td>
-                                <td class="p-3 text-gray-600">Cô đơn đối diện với chính mình (vầng trăng khuyết).</td>
-                                <td class="p-3 text-gray-600">Tràn ngập không gian, thời gian ("Cả trong mơ").</td>
-                            </tr>
-                        </tbody>
-                    </table>
-                </div>
-                
-                <!-- Interactive Insight Box -->
-                <div class="mt-4 bg-yellow-50 p-4 rounded border border-yellow-200 text-xs text-yellow-800">
-                    <strong>💡 Nhận xét chung:</strong> Hồ Xuân Hương dùng bi kịch cá nhân để phản ánh bi kịch thời đại. Xuân Quỳnh dùng tình yêu cá nhân để khẳng định giá trị vĩnh hằng của con người.
-                </div>
+            <!-- Conclusion Block -->
+            <div class="mt-8 p-6 bg-gray-700 rounded-lg text-white">
+                <h3 class="text-xl header-font font-bold mb-3 text-red-300">Kết luận: Giá trị Bổ sung</h3>
+                <p>Hai tác phẩm là hai mảnh ghép hoàn hảo, không thể thiếu trong chân dung Đất nước Việt Nam:</p>
+                <ul class="list-disc list-inside ml-4 mt-2 text-gray-300">
+                    <li>**Nguyễn Đình Thi** đặt nền móng cho ý chí **đấu tranh và tự cường**.</li>
+                    <li>**Tạ Hữu Yên** khẳng định sức sống **văn hóa và sự tái sinh** sau chiến tranh.</li>
+                    <li>Cả hai đều tôn vinh **lòng yêu nước bất diệt** và niềm tự hào dân tộc.</li>
+                </ul>
             </div>
         </section>
+    </div>
 
-        <!-- Conclusion -->
-        <section class="bg-gradient-to-r from-gray-800 to-gray-700 text-white p-8 rounded-xl shadow-xl text-center">
-            <h2 class="text-2xl font-bold serif mb-4">5. Tổng Kết Giá Trị</h2>
-            <div class="grid md:grid-cols-2 gap-8 max-w-4xl mx-auto text-left">
-                <div class="bg-white/10 p-5 rounded backdrop-blur-sm">
-                    <h4 class="font-bold text-lg mb-2 text-rose-300">Giá Trị Nhân Văn</h4>
-                    <p class="text-sm opacity-90">Cả hai tác phẩm đều trân trọng vẻ đẹp tâm hồn người phụ nữ: luôn khao khát được yêu thương, được hạnh phúc trọn vẹn dù trong hoàn cảnh nào.</p>
-                </div>
-                <div class="bg-white/10 p-5 rounded backdrop-blur-sm">
-                    <h4 class="font-bold text-lg mb-2 text-cyan-300">Tiếp Nối & Phát Triển</h4>
-                    <p class="text-sm opacity-90">Hồ Xuân Hương là người mở đường đấu tranh đầy gai góc. Xuân Quỳnh tiếp nối và hoàn thiện vẻ đẹp ấy bằng sự dịu dàng nhưng kiên định của người phụ nữ hiện đại.</p>
-                </div>
-            </div>
-            <p class="mt-8 italic font-serif text-gray-300 text-sm">"Một câu thơ hay là một câu thơ có sức gợi, và là một câu thơ vang mãi trong không trung dẫu tập thơ có khép lại."</p>
-        </section>
-
-    </main>
-
-    <footer class="bg-gray-100 py-6 text-center text-gray-500 text-xs border-t border-gray-200 mt-8">
-        <p>&copy; 2024 Phân Tích Văn Học - So Sánh Tự Tình II & Sóng</p>
-        <p>Ứng dụng tương tác hỗ trợ học tập Ngữ Văn, 12CTin: Thiên Ân, Hoàng Quân, Thái Bảo, Thái Dương, Gia Quý, Minh Quân, Thiên An, Nhật Minh, Quang Huy</p>
+    <!-- Footer -->
+    <footer class="bg-gray-900 text-gray-400 py-6 text-center text-xs">
+        <p>&copy; 2024 Tóm tắt Văn học So sánh. Thiết kế Responsive bằng Tailwind CSS.</p>
     </footer>
 
-    <!-- Script to handle interactions and chart -->
+    <!-- JavaScript for Mobile Menu and Smooth Scroll -->
     <script>
-        // --- Interaction Logic ---
-        
-        // Tab Switching Logic
-        function switchTab(tabName) {
-            // Hide all content
-            document.getElementById('content-tutinh').classList.add('hidden');
-            document.getElementById('content-tutinh').classList.remove('block');
-            document.getElementById('content-song').classList.add('hidden');
-            document.getElementById('content-song').classList.remove('block');
-
-            // Reset tab styles
-            const btnTuTinh = document.getElementById('tab-tutinh');
-            const btnSong = document.getElementById('tab-song');
-            
-            btnTuTinh.className = "flex-1 py-4 text-center transition-colors tab-inactive hover:bg-rose-50";
-            btnSong.className = "flex-1 py-4 text-center transition-colors tab-inactive hover:bg-cyan-50";
-
-            // Show selected content and style active tab
-            if (tabName === 'tutinh') {
-                document.getElementById('content-tutinh').classList.remove('hidden');
-                document.getElementById('content-tutinh').classList.add('block');
-                btnTuTinh.className = "flex-1 py-4 text-center transition-colors tab-active bg-rose-50";
-            } else {
-                document.getElementById('content-song').classList.remove('hidden');
-                document.getElementById('content-song').classList.add('block');
-                btnSong.className = "flex-1 py-4 text-center transition-colors tab-active bg-cyan-50";
-            }
-        }
-
-        // --- Chart.js Visualization ---
-        document.addEventListener('DOMContentLoaded', function() {
-            const ctx = document.getElementById('comparisonChart').getContext('2d');
-            
-            // Data derived from literary analysis
-            // Scales: 0 (Low) to 100 (High)
-            // Attributes:
-            // 1. Nỗi Đau (Pain/Tragedy)
-            // 2. Phản Kháng (Resistance/Intensity)
-            // 3. Hy Vọng (Hope/Optimism)
-            // 4. Lãng Mạn (Romance/Gentleness)
-            // 5. Sự Chủ Động (Proactivity/Agency)
-
-            const data = {
-                labels: ['Nỗi Đau & Bi Kịch', 'Sự Phản Kháng', 'Niềm Hy Vọng', 'Sự Lãng Mạn', 'Tính Chủ Động'],
-                datasets: [
-                    {
-                        label: 'Hồ Xuân Hương (Tự Tình II)',
-                        data: [90, 85, 20, 30, 50], // High pain, high resistance, low hope
-                        fill: true,
-                        backgroundColor: 'rgba(244, 63, 94, 0.2)', // Rose-500 low opacity
-                        borderColor: 'rgb(244, 63, 94)',
-                        pointBackgroundColor: 'rgb(244, 63, 94)',
-                        pointBorderColor: '#fff',
-                        pointHoverBackgroundColor: '#fff',
-                        pointHoverBorderColor: 'rgb(244, 63, 94)'
-                    },
-                    {
-                        label: 'Xuân Quỳnh (Sóng)',
-                        data: [30, 40, 95, 90, 85], // Low pain, high hope, high romance/proactivity
-                        fill: true,
-                        backgroundColor: 'rgba(6, 182, 212, 0.2)', // Cyan-500 low opacity
-                        borderColor: 'rgb(6, 182, 212)',
-                        pointBackgroundColor: 'rgb(6, 182, 212)',
-                        pointBorderColor: '#fff',
-                        pointHoverBackgroundColor: '#fff',
-                        pointHoverBorderColor: 'rgb(6, 182, 212)'
-                    }
-                ]
-            };
-
-            const config = {
-                type: 'radar',
-                data: data,
-                options: {
-                    responsive: true,
-                    maintainAspectRatio: false,
-                    elements: {
-                        line: {
-                            borderWidth: 2
-                        }
-                    },
-                    scales: {
-                        r: {
-                            angleLines: {
-                                display: true,
-                                color: 'rgba(0, 0, 0, 0.1)'
-                            },
-                            suggestedMin: 0,
-                            suggestedMax: 100,
-                            grid: {
-                                color: 'rgba(0, 0, 0, 0.05)'
-                            },
-                            pointLabels: {
-                                font: {
-                                    size: 11,
-                                    family: "'Noto Sans', sans-serif"
-                                },
-                                color: '#4b5563' // Gray-600
-                            },
-                            ticks: {
-                                display: false // Hide numbers on axis for cleaner look
-                            }
-                        }
-                    },
-                    plugins: {
-                        legend: {
-                            display: false // Custom legend built in HTML
-                        },
-                        tooltip: {
-                            backgroundColor: 'rgba(255, 255, 255, 0.9)',
-                            titleColor: '#1f2937',
-                            bodyColor: '#1f2937',
-                            borderColor: '#e5e7eb',
-                            borderWidth: 1,
-                            padding: 10,
-                            displayColors: true,
-                            callbacks: {
-                                label: function(context) {
-                                    return context.dataset.label + ': ' + context.raw + '%';
-                                }
-                            }
-                        }
-                    }
-                }
-            };
-
-            new Chart(ctx, config);
+        // Toggle Mobile Menu
+        document.getElementById('mobile-menu-button').addEventListener('click', function() {
+            document.getElementById('mobile-menu').classList.toggle('hidden');
         });
+
+        // Smooth Scrolling for all internal links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const targetId = this.getAttribute('href').substring(1);
+                const targetElement = document.getElementById(targetId);
+
+                if (targetElement) {
+                    window.scrollTo({
+                        top: targetElement.offsetTop - 80, // Offset for fixed header
+                        behavior: 'smooth'
+                    });
+                }
+                // Close mobile menu after clicking a link
+                document.getElementById('mobile-menu').classList.add('hidden');
+            });
+        });
+
     </script>
 </body>
 </html>
